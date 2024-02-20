@@ -2,13 +2,12 @@ import { FC, useState } from "react";
 import { FaYarn } from "react-icons/fa";
 import { fetchNui } from "../utils/fetchNui";
 
-const Entry: FC<{ name: string, event: string }> = ({ name, event }) => 
+const Entry: FC<{ name: string, event: string, entity: number }> = ({ name, event, entity }) => 
 {
-    const [ index, setIndex ] = useState<number>(0);
 
     const handleClickEvent = () =>
     {
-        fetchNui('triggerEvent', event);
+        fetchNui('triggerEvent', JSON.stringify({event: event, entity: entity}));
     }
 
     return (

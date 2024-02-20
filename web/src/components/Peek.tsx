@@ -10,7 +10,7 @@ import Entry from "./Entry";
 const Peek: FC = () =>
 {
     const [ peekState, setPeekState ] = useState<boolean>(false);
-    const [ entries, setEntries ] = useState<{ name: string, event: string }[]>([]);
+    const [ entries, setEntries ] = useState<{ name: string, event: string, entity: number }[]>([]);
 
     useNuiEvent<string>('openPeek', (data) =>
     {
@@ -36,7 +36,7 @@ const Peek: FC = () =>
     useNuiEvent<string>('entryData', (data) =>
     {
         const _data = JSON.parse(data);
-        console.log(_data.entry.event);
+        //console.log(_data.entry.event);
 
         const eye =  document.getElementById("#target-eye")
         
@@ -45,11 +45,11 @@ const Peek: FC = () =>
             eye.style.color = "yellow"
         }
 
-        setEntries(prev => [ ...prev, { name: _data.entry.name, event: _data.entry.event }])
+        setEntries(prev => [ ...prev, { name: _data.entry.name, event: _data.entry.event , entity: _data.entry.entity}]);
     });
 
     return (
-        <div style={{ visibility: peekState ? 'visible' : 'hidden', height: '100%' }} id="target-wrapper">
+        <div style={{ visibility: peekState ? 'visible' : 'hidden', height: '100%', color: entries.length > 0 ? "Yellow" : "White" }} id="target-wrapper">
             <i id="target-eye"><FaEye /></i>
             <div id="target-label-wrapper">
                 <div id="target-label">
